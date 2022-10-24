@@ -42,7 +42,7 @@ def hasClassWithName(l: List, n: str):
 	else:
 		return False
 
-
+#testing git, idk how this works!!
 class CustomBot(commands.Bot):
 	async def setup_hook(self):
 		for file in glob.glob('./commands/**/*.py'):
@@ -66,3 +66,4 @@ class CustomBot(commands.Bot):
 
 client = CustomBot(command_prefix='$$', help_command = None, intents=intents, heartbeat_timeout=60000)
 client.run(format(os.environ.get('TOKEN')))
+
