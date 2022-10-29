@@ -47,4 +47,4 @@ __IMPORTANT:__ Unibot depends on a version of Python `3.8` or greater.
 
 ## ❔ How should I handle errors and problems?
 
-   You can always create an issue at the [Issues](https://github.com/connekitius/unibot/issues) tab, or you can always send a DM over to `Con#5209`!
+   You can always create an issue at the [Issues](https://github.com/connekitius/unibot/issues) tab, or you can always send a DM over to `Con#5209` or `Arktic#1588`!
