@@ -66,5 +66,4 @@ class CustomBot(commands.Bot):
 
 client = CustomBot(command_prefix='$$', help_command = None, intents=intents, heartbeat_timeout=60000)
 client.run(format(os.environ.get('TOKEN')))
-#hello am taha
-
+#DEEZ NUTS
