@@ -64,6 +64,9 @@ class CustomBot(commands.Bot):
 				self.add_listener(listn)
 				print(Fore.BLUE + f'{time} ' + Fore.GREEN + '[SUCCESS	] ' + Fore.LIGHTBLACK_EX + f'Loaded event {evname}		')
 
-client = CustomBot(command_prefix='$$', help_command = None, intents=intents, heartbeat_timeout=60000)
+client = CustomBot(command_prefix='.', help_command = None, intents=intents, heartbeat_timeout=60000)
 client.run(format(os.environ.get('TOKEN')))
 #DEEZ NUTS
+
+
+
