@@ -1,0 +1,5 @@
+discord.py[speed]
+sympy
+requests
+python-dotenv
+wikipedia
