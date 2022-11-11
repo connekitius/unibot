@@ -9,3 +9,7 @@ events/_*.py
 
 # Testing files
 tests/*
+
+# Databases
+*.db
+*.sqlite
