@@ -1,2 +1,2 @@
 TOKEN=""
-PREFIX="$$"#put your prefix here
+PREFIX="$$" #put your prefix here
