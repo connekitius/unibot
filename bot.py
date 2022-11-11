@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import discord, glob, os, importlib, inspect
 
+import settings
+
 init()
 load_dotenv()
 
@@ -64,6 +66,6 @@ class CustomBot(commands.Bot):
 				self.add_listener(listn)
 				print(Fore.BLUE + f'{time} ' + Fore.GREEN + '[SUCCESS	] ' + Fore.LIGHTBLACK_EX + f'Loaded event {evname}		')
 
-client = CustomBot(command_prefix='$$', help_command = None, intents=intents, heartbeat_timeout=60000)
-client.run(format(os.environ.get('TOKEN')))
-#DEEZ NUTS
+client = CustomBot(command_prefix=(settings.PREFIX), help_command = None, intents=intents, heartbeat_timeout=60000)
+client.run(settings.TOKEN)
+#FUCK YOU AMIN AM USING MY OWN WAY
