@@ -1,2 +1,11 @@
+# Environmental variables
 .env
-drawing.png
+
+# Unpublished/in-development commands
+commands/**/_*.py
+
+# Unpublished/in-development events
+events/_*.py
+
+# Testing files
+tests/*
