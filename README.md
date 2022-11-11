@@ -7,6 +7,7 @@ Unibot is a Discord bot built in Python, primarly built as a means of school pro
 | <!-- -->    | <!-- -->    |
 |-------------|-------------|
 | Prefix         | $$         |
+(Or you could choose your prefix by modifying the settings.py)
 
 You can see more information regarding commands, categories, bot usage and more at our wiki (coming soon™)
 
