@@ -27,7 +27,7 @@ __IMPORTANT:__ Unibot depends on a version of Python `3.8` or greater.
 
    ```bash
    py -3 -m pip install -r requirements.txt
-   # a requirements.txt for this project will be provided (coming soon™)
+   # a requirements.txt for this project will be provided 
    ```
    *or whichever means suit you, such as `python` or `python3` or plain `pip`/`pip3`!*
 
