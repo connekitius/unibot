@@ -7,7 +7,8 @@ Unibot is a Discord bot built in Python, primarly built as a means of school pro
 | <!-- -->    | <!-- -->    |
 |-------------|-------------|
 | Prefix         | $$         |
-(Or you could choose your prefix by modifying the settings.py)
+
+Or you could choose your prefix by modifying the settings.py
 
 You can see more information regarding commands, categories, bot usage and more at our wiki (coming soon™)
 
@@ -48,4 +49,4 @@ __IMPORTANT:__ Unibot depends on a version of Python `3.8` or greater.
 
 ## ❔ How should I handle errors and problems?
 
-   You can always create an issue at the [Issues](https://github.com/connekitius/unibot/issues) tab, or you can always send a DM over to `Con#5209` or `Arktic#1588`!
+   You can always create an issue at the [Issues](https://github.com/connekitius/unibot/issues) tab, or you can always send a DM over to `Con#5209` or `Arktic#1588` on Discord!
