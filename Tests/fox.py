@@ -9,7 +9,7 @@ async def cat(ctx: commands.Context):
 	if res['image'] is not None:
 		embed = discord.Embed(
 			colour=discord.Colour.dark_blue(),
-			title='🐈 Kitty Cats'
+			title='🦊 Foxy'
 		)
 		embed.set_image(url=res['image'])
 		return await ctx.reply(embed=embed)
