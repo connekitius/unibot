@@ -9,7 +9,7 @@ async def cat(ctx: commands.Context):
 	if res['file'] is not None:
 		embed = discord.Embed(
 			colour=discord.Colour.dark_blue(),
-			title='🐈 Kitty Cats'
+			title='🦊 Foxy fox'
 		)
 		embed.set_image(url=res['file'])
 		return await ctx.reply(embed=embed)
@@ -20,4 +20,3 @@ async def cat(ctx: commands.Context):
 			description='Could not load Fox image(s).'
 		)
 		return await ctx.reply(embed=embed)
-
