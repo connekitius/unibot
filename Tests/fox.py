@@ -6,12 +6,12 @@ url = "randomfox.ca/floof"
 @commands.command(aliases=["fox", "foxy"])
 async def cat(ctx: commands.Context):
 	res = requests.get(url).json()
-	if res['file'] is not None:
+	if res['image'] is not None:
 		embed = discord.Embed(
 			colour=discord.Colour.dark_blue(),
-			title='🦊 Foxy fox'
+			title='🐈 Kitty Cats'
 		)
-		embed.set_image(url=res['file'])
+		embed.set_image(url=res['image'])
 		return await ctx.reply(embed=embed)
 	else:
 		embed = discord.Embed(
@@ -20,3 +20,4 @@ async def cat(ctx: commands.Context):
 			description='Could not load Fox image(s).'
 		)
 		return await ctx.reply(embed=embed)
+
