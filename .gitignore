@@ -7,6 +7,9 @@ commands/**/_*.py
 # Unpublished/in-development events
 events/_*.py
 
+# Unpublished libraries
+lib/**/%*.py
+
 # Testing files
 tests/*
 
