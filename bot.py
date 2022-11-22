@@ -37,6 +37,7 @@ class CustomBot(commands.Bot):
 						self.add_command(main)
 					else:
 						self.add_command(cmds[0][1])
+					print(f'{time} || Loaded command {filename}')
 				else:
 					continue
 
