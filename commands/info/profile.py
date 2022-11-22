@@ -14,7 +14,7 @@ async def profile(ctx: commands.Context, member: Optional[discord.Member] = None
 	user = member or cast(discord.Member, ctx.author)
 	activity = "N/A" if user.activity == None else f"{cast(discord.CustomActivity, user.activity).emoji} {cast(discord.CustomActivity, user.activity).name}"
 	embed = discord.Embed(
-		colour=discord.Colour.dark_purple(),
+		colour=discord.Colour.dark_blue(),
 		title=f'🆔 Profile: `{user.display_name}` [{"📱" if user.is_on_mobile() else "💻"}]',
 		description=f'*{activity}*'
 	).set_thumbnail(
