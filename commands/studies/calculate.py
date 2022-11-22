@@ -1,33 +1,15 @@
-from sympy import Integer, Float
-from sympy.parsing.sympy_parser import parse_expr, implicit_multiplication_application, standard_transformations
-from discord.ext import commands
-from datetime import datetime
 import discord
-
-transformations = (standard_transformations + (implicit_multiplication_application,))
-
-def is_int(n):
-	try:
-		float_n = float(n)
-		int_n = int(float_n)
-	except ValueError:
-		return False
-	else:
-		return float_n == int_n
-
-def is_float(n):
-	try:
-		float(n)
-	except ValueError:
-		return False
-	else:
-		return True
+from datetime import datetime
+from discord.ext import commands
+from lib.utils import random_error
+from lib.symbols import NBT
+from lib.numbers import int_if_dotzero_float
+from lib.calculations import parse_expr, Float, Integer
 
 @commands.command(aliases=['calc'], description='Calculate an expression.')
-@commands.cooldown(1, 5.0)
+@commands.cooldown(1, 5, commands.BucketType.user)
 async def calculate(ctx: commands.Context, expression: str):
-	res = parse_expr(expression.replace('^', '**'), transformations=transformations)
-	res = Integer(Float(res)) if is_int(res) else Float(res) if is_float(res) else res
+	res = int_if_dotzero_float(parse_expr(expression.replace('^', '**'), transformations='all'))
 	embed = discord.Embed(
 		colour=discord.Colour.dark_blue(),
 		title=f'🧮 Calculation: `{expression}`'
@@ -38,8 +20,8 @@ async def calculate(ctx: commands.Context, expression: str):
 		embed.timestamp = datetime.now()
 		return await ctx.reply(embed=embed)
 	elif isinstance(res, Exception):
-		embed.title = f'❌ Calculation Error: `{res.__class__.__name__}`'
-		embed.description = f"```py\n‎\t{res}```"
+		embed.title = random_error()
+		embed.description = f"A code error occured:{NBT}*```py{res}```*"
 		embed.timestamp = datetime.now()
 		return await ctx.reply(embed=embed)
 
@@ -48,7 +30,7 @@ async def calculate_error(ctx: commands.Context, error: commands.CommandError):
 	if isinstance(error, commands.MissingRequiredArgument):
 		embed = discord.Embed(
 			colour=discord.Colour.dark_blue(),
-			title='❌ Error: `Missing Argument`',
-			description='```Please enter an expression.```'
+			title=random_error(),
+			description=f'Please enter an expression.{NBT}*(i.e. 1+2, 3*4...)*'
 		)
 		return await ctx.reply(embed=embed)
