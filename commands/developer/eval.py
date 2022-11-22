@@ -90,7 +90,7 @@ async def eval_cmd(ctx: commands.Context, *, cmd: str):
 		result = await env["_eval_expr"]()
 
 		embed = discord.Embed(
-			colour=discord.Colour.dark_purple(),
+			colour=discord.Colour.dark_blue(),
 			title="📜 Eval",
 			description=f"```py\n{result}```",
 			timestamp=datetime.now()
@@ -98,7 +98,7 @@ async def eval_cmd(ctx: commands.Context, *, cmd: str):
 		await ctx.reply(embed=embed)
 	except Exception as e:
 		embed = discord.Embed(
-			colour=discord.Colour.dark_purple(),
+			colour=discord.Colour.dark_blue(),
 			title=f"❌ Eval Error: `{e.__class__.__name__}`",
 			description=f"```py\n{e}```",
 			timestamp=datetime.now()
@@ -109,7 +109,7 @@ async def eval_cmd(ctx: commands.Context, *, cmd: str):
 async def eval_error(ctx: commands.Context, error: commands.CommandError):
 	if isinstance(error, commands.NotOwner):
 		embed = discord.Embed(
-			colour=discord.Colour.dark_purple(),
+			colour=discord.Colour.dark_blue(),
 			title='❌ Error: `Not Owner`',
 			description='```This command is limited to the bot developer(s).```'
 		)
@@ -117,15 +117,15 @@ async def eval_error(ctx: commands.Context, error: commands.CommandError):
 
 	elif isinstance(error, commands.MissingRequiredArgument):
 		embed = discord.Embed(
-			colour=discord.Colour.dark_purple(),
+			colour=discord.Colour.dark_blue(),
 			title='❌ Error: `Missing Argument`',
-			description='```Please enter an expression/code to evaluate```'
+			description='```Please enter an expression/code to evaluate.```'
 		)
 		return await ctx.reply(embed=embed)
 
 	else:
 		embed = discord.Embed(
-			colour=discord.Colour.dark_purple(),
+			colour=discord.Colour.dark_blue(),
 			title=f'❌ Error: `{error.__class__.__name__}`',
 			description=f'```{error}```'
 		)
