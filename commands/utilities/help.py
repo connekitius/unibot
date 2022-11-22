@@ -16,25 +16,25 @@ def returnInline(prim_str: str, strs = None) -> str:
 @commands.command(aliases=['h'], description='View information about all commands or a specific command.', extras={
 	'examples': ['$$help', '$$h', '$$help ping']
 })
-@commands.cooldown(3, 5)
-@commands.is_owner()
 async def help(ctx: commands.Context, cmd_name: Union[str, None] = None):
 	bot: commands.Bot = ctx.bot
 	if cmd_name == None:
 		catDir: Dict[str, List[str]] = {}
 		for file in glob.glob('./commands/**/*.py', recursive=True):
 			cmdName = os.path.basename(file).split('.')[0]
-			fldrName = os.path.basename(os.path.dirname(file))
-			if fldrName not in list(catDir.keys()):
-				catDir[fldrName] = []
+			if not cmdName.startswith('_'):
+				fldrName = os.path.basename(os.path.dirname(file))
+				if fldrName not in list(catDir.keys()):
+					catDir[fldrName] = []
 
-			catDir[fldrName].append(cmdName)
-
+				catDir[fldrName].append(cmdName)
+			else:
+				continue
 
 		embed = discord.Embed(
-			colour=discord.Colour.dark_purple(),
-			title='Wubemium Help Guide',
-			description="Welcome to Wubemium! This guide will show you all available commands as well as their categories.\nAs for command arguments, `<...>` implies a required argument, while `[...]` implies an optional argument.\nFor more information regarding a command, please run `$$help` with the command name."
+			colour=discord.Colour.dark_blue(),
+			title='ℹ Unibot Help Prompt',
+			description="Welcome to Unibot.\nUnibot is an open-sourced Python Discord bot built as a means of educational demonstration for the capabilities of Python as a programming language and in terms of functionality.\nThis prompt will show you all available commands as well as their categories.\nAs for command arguments, `<...>` implies a required argument, while `[...]` implies an optional argument.\nFor more information regarding a command, please run `$$help` with the command name."
 		)
 
 		for k in catDir:
@@ -45,7 +45,7 @@ async def help(ctx: commands.Context, cmd_name: Union[str, None] = None):
 		cmd = bot.get_command(cmd_name.lower())
 		if cmd == None:
 			embed = discord.Embed(
-				colour=discord.Colour.dark_purple(),
+				colour=discord.Colour.dark_blue(),
 				description=f'Command `{cmd_name.lower()}` does not exist.'
 			)
 			return await ctx.reply(embed=embed)
@@ -55,7 +55,7 @@ async def help(ctx: commands.Context, cmd_name: Union[str, None] = None):
 			title += f' [⏲ {format(cmd.cooldown.per)}s]'
 
 		helpEmbed = discord.Embed(
-			colour=discord.Colour.dark_purple(),
+			colour=discord.Colour.dark_blue(),
 			title=title
 		)
 
