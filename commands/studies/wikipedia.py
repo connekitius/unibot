@@ -1,9 +1,10 @@
 import discord, wikipedia, re
 from typing import List
 from discord.ext import commands
+from lib.symbols import NEWLINE
 
-NEWLINE = '\n'
 @commands.group(name='wikipedia', invoke_without_command=True)
+@commands.cooldown(1, 10, commands.BucketType.user)
 async def wikipedia_cmd(ctx: commands.Context):
 	pass
 
@@ -38,7 +39,7 @@ async def view(ctx: commands.Context, *, page: str):
 	try:
 		wiki_page = wikipedia.page(title=page.lower())
 		embed = discord.Embed(
-			colour=discord.Colour.dark_purple(),
+			colour=discord.Colour.dark_blue(),
 			title=f'🌐 Wikipedia - View: `{wiki_page.title}`',
 			description=re.sub(r'\.(?=[^ \W\d])', f'.{NEWLINE}', wiki_page.summary)
 		)
