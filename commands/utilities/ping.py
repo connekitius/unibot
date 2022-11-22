@@ -8,7 +8,7 @@ async def ping(ctx: commands.Context):
 	bot: commands.Bot = ctx.bot
 	embed = discord.Embed(
 		title='🏓 Pong!',
-		colour=discord.Colour.dark_purple(),
+		colour=discord.Colour.dark_blue(),
 		description=f'__API Latency__:‎\t`{round(bot.latency * 1000, 1)}`ms\n__Message Latency__:‎\t`fetching...`\n__Editing Latency__:‎\t`fetching...`'
 	)
 
@@ -20,7 +20,7 @@ async def ping(ctx: commands.Context):
 	
 	embed2 = discord.Embed(
 		title='🏓 Pong!',
-		colour=discord.Colour.dark_purple(),
+		colour=discord.Colour.dark_blue(),
 		description=f'__API Latency__:‎\t`{round(bot.latency * 1000, 1)}`ms\n__Message Latency__:‎\t`{messageLatency}`ms\n__Editing Latency__:‎\t`fetching...`'
 	)
 	m = await m.edit(embed=embed2)
@@ -29,7 +29,7 @@ async def ping(ctx: commands.Context):
 	editLatency = round((editEnd - editStart) * 1000, 1)
 	embed3 = discord.Embed(
 		title='🏓 Pong!',
-		colour=discord.Colour.dark_purple(),
+		colour=discord.Colour.dark_blue(),
 		description=f'__API Latency__:‎\t`{round(bot.latency * 1000, 1)}`ms\n__Message Latency__:‎\t`{messageLatency}`ms\n__Editing Latency__:‎\t`{editLatency}`ms'
 	)
 	await m.edit(embed=embed3)
