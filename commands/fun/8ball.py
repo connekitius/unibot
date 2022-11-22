@@ -1,5 +1,7 @@
 import discord, random
 from discord.ext import commands
+from lib.utils import random_error
+from lib.symbols import NBT
 
 @commands.command(name="8ball")
 async def eight_ball(ctx: commands.Context, *, question: str):
@@ -24,14 +26,14 @@ async def eight_ball(ctx: commands.Context, *, question: str):
 		description='*' + choice + '*'
 	)
 
-	await ctx.reply(embeds=embed)
+	await ctx.reply(embed=embed)
 
 @eight_ball.error
 async def eight_ball_error(ctx: commands.Context, error: commands.CommandError):
 	if isinstance(error, commands.MissingRequiredArgument):
 		embed = discord.Embed(
 			colour=discord.Colour.dark_blue(),
-			title='❌ Error: `Missing Argument`',
-			description='```Please enter a question.```'
+			title=random_error(),
+			description=f'Please enter a question.{NBT}*(i.e. Am I awesome? Are you intelligent...)*'
 		)
 		return await ctx.reply(embed=embed)
