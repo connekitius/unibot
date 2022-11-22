@@ -47,7 +47,7 @@ class HigherLower(discord.ui.View):
 @commands.command(aliases=["hl"], extras={
 	"examples": "$$hl"
 })
-@commands.cooldown(1, 5.0)	
+@commands.cooldown(1, 5, commands.BucketType.user)
 async def higher_lower(ctx: commands.Context):
 	baseNum = random.randint(1, 100)
 	guess = random.randint(1, 100)

@@ -107,7 +107,7 @@ class TriviaChoices(discord.ui.View):
 			return await interaction.response.edit_message(embed=embed, view=None)
 
 @commands.command()
-@commands.cooldown(5, 20.0)
+@commands.cooldown(5, 20, commands.BucketType.user)
 async def trivia(ctx: commands.Context, difficulty: Optional[str]):
 	endpoint = format(os.environ.get('TRIVIA_API_ENDPOINT')) + '?limit=10'
 	if difficulty and difficulty.lower() in ['easy', 'medium', 'hard']:
