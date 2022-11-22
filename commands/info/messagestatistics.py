@@ -3,11 +3,11 @@ from discord.ext import commands
 from typing import Optional, cast
 
 @commands.command(aliases=['ms'])
-@commands.cooldown(1, 20.0)
+@commands.cooldown(1, 20, commands.BucketType.user)
 async def messagestatistics(ctx: commands.Context, member: Optional[discord.Member] = None):
 	user = member or ctx.author
 	if ctx.guild == None or ctx.channel.type == discord.DMChannel.type:
-		return;
+		pass
 
 	m = await ctx.reply('🔃 Loading...')
 	channelMsgsList = [messages async for messages in ctx.channel.history(limit=10000)]
@@ -30,7 +30,7 @@ async def messagestatistics(ctx: commands.Context, member: Optional[discord.Memb
 
 	embed = discord.Embed(
 		title=f'💬 Message Statistics: `{user.display_name}`',
-		colour=discord.Colour.dark_purple(),
+		colour=discord.Colour.dark_blue(),
 		timestamp=m.created_at,
 		description=f'__**FROM `{user.display_name}`:**__\n‎\t**TOTAL MESSAGES**: `{format(channelMsgs)}`\n‎\t**NCM**: `{nonCommandMsgs}`\n‎\t**CM**: `{format(commandMsgs)}`\n__**IN {cast(discord.TextChannel, ctx.channel).mention}**__:\n‎\t**TOTAL MESSAGES**: `{format(len(channelMsgsList))}`\n‎\t**NON-BOT MESSAGES**: `{format(nonBotMsgs)}`\n‎\t**BOT MESSAGES**: `{format(botMsgs)}`\n‎\t**NCM**: `{format(tnonCommandMsgs)}`\n‎\t**CM**: `{format(tcommandMsgs)}`'
 	).set_thumbnail(
