@@ -3,3 +3,5 @@ sympy
 requests
 python-dotenv
 wikipedia
+Google-Images-Search
+profanity-check
