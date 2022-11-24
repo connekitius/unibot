@@ -8,13 +8,13 @@ if not sys.version or sys.version[:3] < '3.8':
 		import termcolor # type: ignore
 		import os
 		os.system('color')
-		print(termcolor.colored('ERROR:', 'red'), termcolor.colored('Unibot requires a version of >=3.8 of Python as it uses discord.py 2.0 which requires that Python version.', 'grey'))
-	except ImportError:
+		print(termcolor.colored('ERROR:', 'red'), termcolor.colored('Unibot requires a version of >=3.8 of Python as it uses discord.py 2.0 which requires that Python version.', 'white'))
+	except ModuleNotFoundError:
 		print('ERROR:', 'Unibot requires a version of >=3.8 of Python as it uses discord.py 2.0 which requires that Python version.')
 	exit()
 
 # List of required environmental variables to check against
-req_env_variables = [
+req_variables = [
 	'TOKEN',
 	# -- Chatbot API -- #
 	'CHATBOT_BRAIN_ID',
@@ -68,77 +68,26 @@ try:
 				import os
 				os.system('color')
 
-				print(termcolor.colored('ERROR:', 'red'), termcolor.colored(f'The following required packages are missing: {", ".join(not_found_pkgs)}', 'grey'))
-			except ImportError:
+				print(termcolor.colored('ERROR:', 'red'), termcolor.colored(f'The following required packages are missing: {", ".join(not_found_pkgs)}', 'white'))
+			except ModuleNotFoundError:
 				print('ERROR:', f'The following required packages are missing: {", ".join(not_found_pkgs)}')
 
 			exit()
 
-except ImportError:
+except ModuleNotFoundError:
 	try:
 		import termcolor # type: ignore
 		import os
 		os.system('color')
 
-		print(termcolor.colored('ERROR:', 'red'), termcolor.colored('Unibot requires the Python built-in "pkg_resources" module.', 'grey'))
-	except ImportError:
+		print(termcolor.colored('ERROR:', 'red'), termcolor.colored('Unibot requires the Python built-in "pkg_resources" module.', 'white'))
+	except ModuleNotFoundError:
 		print('ERROR:', 'Unibot requires the Python built-in "pkg_resources" module.')
 
 	exit()
 
-from dotenv import load_dotenv
 from discord.ext import commands
 import discord, glob, os, importlib, inspect
-
-TOKEN = ''
-PREFIX = ''
-
-try:
-	# If settings, use token and prefix provided in settings
-	import settings # type: ignore
-	if settings.TOKEN:
-		TOKEN = settings.TOKEN
-	elif settings.PREFIX:
-		PREFIX = settings.PREFIX
-except ImportError:
-	# Else, use the environmental variables
-	load_dotenv()
-	try:
-		import os
-		# Check if there is any missing environmental variables
-		try:
-			import os
-			found_env = []
-			for req_env in req_env_variables:
-				found_env.append(os.environ.get(req_env))
-				not_found = list(filter(lambda v: v is None, found_env))
-				try:
-					import termcolor # type: ignore
-					import os
-					os.system('color')
-
-					print(termcolor.colored('ERROR:', 'red'), termcolor.colored(f'The following required environmental variables are missing: {", ".join(not_found)}', 'grey'))
-				except ImportError:
-					print('ERROR:', f'The following required environmental variables are missing: {", ".join(not_found)}')
-
-				exit()
-
-		except ImportError:
-			try:
-				import termcolor # type: ignore
-				import os
-				os.system('color')
-
-				print(termcolor.colored('ERROR:', 'red'), termcolor.colored('Unibot requires the Python built-in "os" module.', 'grey'))
-			except ImportError:
-				print('ERROR:', 'Unibot requires the Python built-in "os" module.')
-
-			exit()
-		TOKEN = format(os.environ.get('TOKEN'))
-		PREFIX = os.environ.get('PREFIX')
-	except ImportError:
-		print('ERROR:', 'Unibot requires the Python built-in "os" module.')
-		exit()
 
 # Check if code is run as module (py -3 bot.py) or script (py -3 -m bot)
 try:
@@ -154,14 +103,51 @@ try:
 			import os
 			os.system('color')
 
-			print(termcolor.colored('ERROR:', 'red'), termcolor.colored('You are running Unibot as a module, which will prevent the loading of local libraries. Please run as a script, as:\n\tpy -3 -m bot\n\t(or) python -m bot', 'grey'))
-		except ImportError:
+			print(termcolor.colored('ERROR:', 'red'), termcolor.colored('You are running Unibot as a module, which will prevent the loading of local libraries. Please run as a script, as:\n\tpy -3 -m bot\n\t(or) python -m bot', 'white'))
+		except ModuleNotFoundError:
 			print('ERROR:', 'You are running Unibot as a module, which will prevent the loading of local libraries. Please run as a script, as:\n\tpy -3 -m bot\n\t(or) python -m bot')
 		
 		exit()
 
-except ImportError:
+except ModuleNotFoundError:
 	print('ERROR:', 'Unibot requires the Python built-in "sys" module.')
+	exit()
+
+
+# Get required variables
+try:
+	# Import settings.py/env fetching utility
+	from lib.utils import get_config_key
+	found_vars = []
+	for req_var in req_variables:
+		found_vars.append(get_config_key(req_var))
+
+	# If there's any found variable that is None, check variables that are none and list them
+	if any(fv is None for fv in found_vars):
+		not_found_vars = []
+		for i, fv in enumerate(found_vars):
+			if fv is None:
+				not_found_vars.append(req_variables[i])
+		try:
+			import termcolor # type: ignore
+			import os
+			os.system('color')
+
+			print(termcolor.colored('ERROR:', 'red'), termcolor.colored(f'The following required configuration keys are missing: {", ".join(not_found_vars)}', 'white'))
+		except ModuleNotFoundError:
+			print('ERROR:', f'The following required configuration keys are missing: {", ".join(not_found_vars)}')
+		
+		exit()
+except ModuleNotFoundError:
+	try:
+		import termcolor # type: ignore
+		import os
+		os.system('color')
+
+		print(termcolor.colored('ERROR:', 'red'), termcolor.colored('Unibot requires the local "lib.utils" module.', 'white'))
+	except ModuleNotFoundError:
+		print('ERROR:', 'Unibot requires the local "lib.utils" module.')
+
 	exit()
 
 # Enable privileged Discord intents
@@ -220,5 +206,5 @@ class CustomBot(commands.Bot):
 				else:
 					continue
 
-client = CustomBot(command_prefix=PREFIX or '$$', help_command = None, intents=intents, heartbeat_timeout=60000)
-client.run(TOKEN)
+client = CustomBot(command_prefix=get_config_key('PREFIX') or '$$', help_command = None, intents=intents, heartbeat_timeout=60000)
+client.run(format(get_config_key('TOKEN')))
